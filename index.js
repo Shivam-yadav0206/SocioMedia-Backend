@@ -17,6 +17,7 @@ import {verifyToken} from "./middleware/auth.js";
 import User from "./models/User.js";
 import Post from "./models/Post.js";
 import {users, posts} from "./data/index.js";
+import { hostname } from "os";
 
 // CONFIGURATIOn
 const __filename = fileURLToPath(import.meta.url);
@@ -63,7 +64,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology:true,
 })
 .then(()=> {  
-    app.listen(PORT, () => console.log(`Server PORT: ${PORT}`));
+    app.listen(PORT, hostname, () => console.log(`Server PORT: ${PORT}`));
     // User.insertMany(users);
     // Post.insertMany(posts); 
 })
