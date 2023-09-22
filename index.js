@@ -54,7 +54,7 @@ app.use("/users",userRoutes);
 app.use("/posts",postRoutes);
 
 app.get('/', (req,res) => {
-    res.send("Welcome to SocioMedia Backend");
+    res.send('Hello on SocioMedia backend');
 })
 
 /* MONGOOSE SETUP */
@@ -63,14 +63,7 @@ mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology:true,
 })
-
-app.get('/', (req,res) => {
-    res.send('Hello on SocioMedia backend');
-})
-
 .then(()=> {  
     app.listen(PORT, () => console.log(`Server PORT: ${PORT}`));
-    // User.insertMany(users);
-    // Post.insertMany(posts); 
 })
 .catch((error) => console.log(`${error} did not connect`));
