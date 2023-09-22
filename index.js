@@ -59,11 +59,13 @@ app.get('/', (req,res) => {
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 3001;
-mongoose.connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology:true,
-})
-.then(()=> {  
+
+try {
+    mongoose.connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology:true,
+    })
     app.listen(PORT, () => console.log(`Server PORT: ${PORT}`));
-})
-.catch((error) => console.log(`${error} did not connect`));
+} catch (error) {
+    console.log(`${error} did not connect`);
+}
