@@ -63,6 +63,11 @@ mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology:true,
 })
+
+app.get('/', (req,res) => {
+    res.send('Hello on SocioMedia backend');
+})
+
 .then(()=> {  
     app.listen(PORT, () => console.log(`Server PORT: ${PORT}`));
     // User.insertMany(users);
