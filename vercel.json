@@ -1,23 +1,15 @@
 {
-    "name": "SocioMedia backend",
-    "version": 2,
-
-    "builds": [
-        {
-            "src": "./index.js",
-            "use": "@vercel/node"
-        }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/"
-        }
-    ],
-    "env": {
-        "MONGO_URL": "mongodb+srv://shivam0206:shivam@cluster0.3ywsk0n.mongodb.net/",
-        "JWT_SECRET": "somesuperhardstringtoguess"
-    },
-    "public": true
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
 }
-  
