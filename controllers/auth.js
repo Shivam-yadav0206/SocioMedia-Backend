@@ -1,42 +1,46 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { tmpdir } from "os";
+import { join } from "path";
 
-//REGISTER USER 
-export const register = async(req,res) => {
-    try{
-        const {
-            firstName,
-            lastName,
-            email,
-            password,
-            picturePath,
-            friends,
-            location,
-            occupation
-        } = req.body;
+export const register = async (req, res) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      picturePath,
+      friends,
+      location,
+      occupation,
+    } = req.body;
 
-        const salt = await bcrypt.genSalt();
-        const passwordHash = await bcrypt.hash(password,salt);
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
 
-        const newUser = new User({
-            firstName,
-            lastName,
-            email,
-            password:passwordHash,
-            picturePath,
-            friends,
-            location,
-            occupation,
-            viewedProfile: 10000,
-            impressions: 10000,
-        });
-        const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
-    } catch (err) {
-        console.log('Error saving');
-        res.status(500).json({error: err.message});
-    }
+    // Use /tmp for temporary storage
+    const tempFilePath = join(tmpdir(), "temp-file.jpg");
+
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      picturePath: tempFilePath, // Use the temporary file path
+      friends,
+      location,
+      occupation,
+      viewedProfile: 25,
+      impressions: 17,
+    });
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
+  } catch (err) {
+    console.log("Error saving");
+    res.status(500).json({ error: err.message });
+  }
 };
 
 //LOGGING IN
